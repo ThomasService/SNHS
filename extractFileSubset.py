@@ -36,7 +36,7 @@ if os.path.exists(output_folder):
     else:
         dir_empty = str(input(f"{output_folder} contains {len(os.listdir(output_folder))} "\
                    f"files. Do you wish to proceed (y/n)?")).replace("\"", "")
-        if dif_empty.lower() == "y" or "yes":
+        if dir_empty.lower() == "y" or "yes":
             print("Copying files")
         else:
             sys.exit()
@@ -46,14 +46,21 @@ else:
                         f"wish to create this directory (y/n)?")).replace("\"", "")
     if dir_create.lower() == "y" or "yes":
         os.mkdir(output_folder)
-        print(f"Directory {os.path.split(output_folder)[-1]} created")
+        print(f"Directory {os.path.split(output_folder)[-1]} created\n")
     else:
         sys.exit()
 
+print(f"Number of matching files found: {len(file_list)}")
+print(f"Number of files to be copied: {len(files)}")
+
 # Copy files to output folder
-for file in files:
+for index, file in enumerate(files):
     shutil.copy(file, output_folder)
+    # Print progress
+    if index % 10 == 0:
+        print(f"{(index / len(files)) * 100:.2f}%")
     
+# Write .csv containing file names in file subset
 with open(output_folder + "/_ExtractedFiles.csv", "w") as f:
     f.write("\n".join(file_names))
     
