@@ -34,17 +34,17 @@ if os.path.exists(output_folder):
     if not os.listdir(output_folder):
         print("Copying files")
     else:
-        full = str(input(f"{output_folder} contains {len(os.listdir(output_folder))} "\
+        dir_empty = str(input(f"{output_folder} contains {len(os.listdir(output_folder))} "\
                    f"files. Do you wish to proceed (y/n)?")).replace("\"", "")
-        if full == "y":
+        if dif_empty.lower() == "y" or "yes":
             print("Copying files")
         else:
             sys.exit()
 else:
-    creation = str(input(f"{os.path.split(output_folder)[-1]} does not exist in "\
+    dir_create = str(input(f"{os.path.split(output_folder)[-1]} does not exist in "\
                         f"directory {os.path.split(output_folder)[0]}. Do you "\
                         f"wish to create this directory (y/n)?")).replace("\"", "")
-    if creation == "y":
+    if dir_create.lower() == "y" or "yes":
         os.mkdir(output_folder)
         print(f"Directory {os.path.split(output_folder)[-1]} created")
     else:
